@@ -12,7 +12,7 @@ class ErrorHandler:
         self.lexicalErrors = defaultdict(list)
 
     def add_lexical_error(self, errorType, strg, lineNum):
-        self.lexicalErrors[lineNum].append((strg, errorType))
+        self.lexicalErrors[lineNum].append((strg, errorType.value))
         return 
 
     def get_lexical_errors(self):

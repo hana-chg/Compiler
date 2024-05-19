@@ -1,7 +1,6 @@
 #سارا چگینی - 99170372
 from collections import defaultdict
 from scanner import Scanner
-from parser import Parser
 from utils.error_handler import ErrorHandler
 from utils.symbol_table import SymbolTable
 from utils.file_handler import *

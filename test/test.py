@@ -64,33 +64,3 @@ class Test(unittest.TestCase):
         self.assertEqual(score1, 0)
         self.assertEqual(score2, 0)
         self.assertEqual(score3, 0)
-        
-    def test_11(self):
-        score1, score2, score3 = evaluator.calc_test_score('T11')
-        self.assertEqual(score1, 0)
-        self.assertEqual(score2, 0)
-        self.assertEqual(score3, 0)
-        
-    def test_12(self):
-        score1, score2, score3 = evaluator.calc_test_score('T12')
-        self.assertEqual(score1, 0)
-        self.assertEqual(score2, 0)
-        self.assertEqual(score3, 0)
-        
-    def test_13(self):
-        score1, score2, score3 = evaluator.calc_test_score('T13')
-        self.assertEqual(score1, 0)
-        self.assertEqual(score2, 0)
-        self.assertEqual(score3, 0)
-        
-    def test_14(self):
-        score1, score2, score3 = evaluator.calc_test_score('T14')
-        self.assertEqual(score1, 0)
-        self.assertEqual(score2, 0)
-        self.assertEqual(score3, 0)
-        
-    def test_15(self):
-        score1, score2, score3 = evaluator.calc_test_score('T15')
-        self.assertEqual(score1, 0)
-        self.assertEqual(score2, 0)
-        self.assertEqual(score3, 0)

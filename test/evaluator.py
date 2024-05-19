@@ -137,7 +137,7 @@ def calc_test_score(test_name):
         if os.path.exists(file_name):
             os.remove(file_name)
 
-    subprocess.call(['python', 'compiler.py'])
+    subprocess.call(['python3', 'compiler.py'])
     with open(file='test/testcases/' + test_name + '/lexical_errors.txt', mode="r") as f:
         expected_errors = f.read()
     with open(file='test/testcases/' + test_name + '/symbol_table.txt', mode="r") as f:
