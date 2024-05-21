@@ -1,11 +1,9 @@
- 
 def token_file_writer(allTokens):
         tokenFile = open("tokens.txt", "w")
         for line in allTokens.keys():
                 tokenFile.write(str(line) + ".\t")
                 for token in allTokens[line]:
-                        tokenType, tokenValue = token
-                        tokenFile.write(f"({tokenType}, {tokenValue}) ")
+                        tokenFile.write(str(token) + " ")
                 tokenFile.write("\n")
         tokenFile.close()
 

@@ -22,10 +22,3 @@ class SymbolTable :
     
     def get_item(self, index):
         return self.symbolTable[index]
-
-
-
-
-
-
-
