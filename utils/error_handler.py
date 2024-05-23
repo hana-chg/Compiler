@@ -23,11 +23,14 @@ class ErrorHandler:
     def get_lexical_errors(self):
         return self.lexicalErrors
     
-    def add_syntax_error(self, errorType, token ):
-        if (token.get_type() == TokenType.NUM.name or token.get_type() == TokenType.ID.name):
-            self.syntaxErrors[token.get_lineno()].append((token.get_type(),errorType.value))
+    def add_syntax_error(self, errorType, value ):
+        if type(value) is tuple : 
+           lineno, nt = value
+           self.syntaxErrors[lineno].append((nt,errorType.value)) 
+        elif (value.get_type() == TokenType.NUM.name or value.get_type() == TokenType.ID.name):
+            self.syntaxErrors[value.get_lineno()].append((value.get_type(),errorType.value))
         else:
-            self.syntaxErrors[token.get_lineno()].append((token.get_value(),errorType.value))
+            self.syntaxErrors[value.get_lineno()].append((value.get_value(),errorType.value))
 
         return
 

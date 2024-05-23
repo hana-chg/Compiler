@@ -39,7 +39,10 @@ def syntax_error_file_writer(error_handler):
                         for error in syntaxErrors[line]:
                                 syntaxErrorFile.write("#" + str(line) + " : syntax error, ")
                                 errorStr, errorType = error
-                                syntaxErrorFile.write(f"{errorType} {errorStr}\n")
+                                if errorStr == "$":
+                                        syntaxErrorFile.write(f"{errorType}\n")
+                                else:
+                                        syntaxErrorFile.write(f"{errorType} {errorStr}\n")
         else : syntaxErrorFile.write("There is no syntax error.\n")
         syntaxErrorFile.close()
 

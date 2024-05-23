@@ -1,4 +1,4 @@
-from utils.token import TokenType
+from utils.token import TokenType, Token
 from utils.error_handler import *
 from anytree import Node
 from utils.rule_handler import RuleHandler
@@ -11,6 +11,7 @@ class Parser:
         self.symbolTable = symbolTable
         self.errorHandler = errorHandler
         self.ruleHandler = RuleHandler()
+        self.eofReached = False
 
     def run(self):
         self.lookahead = self.scanner.get_next_token()
@@ -29,14 +30,14 @@ class Parser:
 
         if self.lookahead.get_type() in GrammerData.follow[node.name] or self.lookahead.get_value() in GrammerData.follow[node.name]:
                 if  "epsilon" not in GrammerData.first[node.name]:
-                    self.errorHandler.add_syntax_error(ErrorType.MISSED, self.lookahead)
-                    node.parent = None
-                else:
-                    return
+                    self.errorHandler.add_syntax_error(ErrorType.MISSED, (self.lookahead.get_lineno(), node.name))
+                node.parent = None
+                return
         else:
-            if self.lookahead.get_type == TokenType.EOF.name:
+            if self.lookahead.get_type() == TokenType.EOF:
                     self.errorHandler.add_syntax_error(ErrorType.UNEXPECTED_EOF, self.lookahead)
                     node.parent = None
+                    self.eofReached = True
                     return
             else:
                 self.errorHandler.add_syntax_error(ErrorType.ILLEGAL, self.lookahead)
@@ -54,11 +55,12 @@ class Parser:
         elif expected_token == "epsilon":
             Node('epsilon', parent=parent)
         else:
-            self.errorHandler.add_syntax_error(ErrorType.MISSED, self.lookahead)
+            self.errorHandler.add_syntax_error(ErrorType.MISSED, (self.lookahead.get_lineno(), expected_token))
         
 
     def produce(self, parent , rule):
         for p in rule.get_rhs():
+            if self.eofReached : return
             if self.lookahead.get_type() == TokenType.EOF.name:
                 return
             if RuleHandler.is_non_terminal(p):
