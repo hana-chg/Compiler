@@ -37,14 +37,11 @@ class Scanner:
         self.char = self.currentLine[self.index - 1]
 
 
-    def get_current_line(self):
-        return self.lineno
-
     def get_next_token(self):
         tokenType = TokenType.get_token_type(self.char)
         tokenValue = ""
         if tokenType == TokenType.EOF:
-            return Token(TokenType.EOF, '$')
+            return Token(TokenType.EOF, '$', self.lineno)
         elif tokenType == TokenType.WS:
             if self.char == '\n':
                 self.__read_next_line()
@@ -59,21 +56,21 @@ class Scanner:
             tokenValue = self.__get_kwid()
             if tokenValue != "":
                 tokenType = self.__get_id_or_kw_type(tokenValue)
-                return Token(tokenType.value, tokenValue)
+                return Token(tokenType.value, tokenValue, self.lineno)
             else:
                 self.__read_next_char()
                 return self.get_next_token()
         elif tokenType == TokenType.KW:
             tokenValue = self.get_kw()
             if tokenValue != "":
-                return Token(tokenType.value, tokenValue)
+                return Token(tokenType.value, tokenValue, self.lineno)
             else:
                 self.__read_next_char()
                 return self.get_next_token()
         elif tokenType == TokenType.NUM:
             tokenValue = self.__get_number()
             if tokenValue != "":
-                return Token(tokenType.value, tokenValue)
+                return Token(tokenType.value, tokenValue, self.lineno)
             else:
                 self.__read_next_char()
                 return self.get_next_token()
@@ -87,7 +84,7 @@ class Scanner:
                 self.__roll_back_char()
             tokenValue = self.__get_symbols()
             if tokenValue != "": 
-                return Token(tokenType.value, tokenValue)
+                return Token(tokenType.value, tokenValue, self.lineno)
         else:
             self.errorHandler.add_lexical_error(ErrorType.INVALID_INPUT, self.char, self.lineno)
             self.__read_next_char()

@@ -29,9 +29,10 @@ class TokenType(Enum):
             return TokenType.N
         
 class Token:
-    def __init__(self, tokenType, tokenValue):
+    def __init__(self, tokenType, tokenValue, lineno):
         self.tokenType = tokenType
         self.tokenValue = tokenValue
+        self.lineno = lineno
 
     def __str__(self) -> str:
         return  f'({self.tokenType}, {self.tokenValue})'
@@ -41,3 +42,7 @@ class Token:
     
     def get_type(self):
         return self.tokenType
+    
+    def get_lineno(self):
+        return self.lineno
+    # TODO make varaibels private

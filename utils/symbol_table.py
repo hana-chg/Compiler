@@ -1,5 +1,5 @@
 class SymbolTable :
-    keyWords = ["break", "else", "if", "int", "while", "return", "void"]
+    keyWords = ["break", "else", "if", "int", "while", "for", "void", "endif"]
     symbols = ["+", "-", "*", "<", "=", "==", ":", ";", ",", "[", "]", "(", ")", "{", "}"]
 
 
