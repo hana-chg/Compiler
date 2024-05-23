@@ -1,3 +1,6 @@
+from anytree import RenderTree
+
+
 def token_file_writer(allTokens):
         tokenFile = open("tokens.txt", "w")
         for line in allTokens.keys():
@@ -27,3 +30,22 @@ def lexical_error_file_writer(error_handler):
         else : lexicalErrorFile.write("There is no lexical error.")
         lexicalErrorFile.close()
 
+
+def syntax_error_file_writer(error_handler):
+        syntaxErrorFile = open("syntax_errors.txt", "w")
+        syntaxErrors = error_handler.get_syntax_errors()
+        if (bool(syntaxErrors)):
+                for line in syntaxErrors.keys():
+                        for error in syntaxErrors[line]:
+                                syntaxErrorFile.write("#" + str(line) + " : syntax error, ")
+                                errorStr, errorType = error
+                                syntaxErrorFile.write(f"{errorType} {errorStr}\n")
+        else : syntaxErrorFile.write("There is no syntax error.\n")
+        syntaxErrorFile.close()
+
+
+def parse_tree_file_writer(node):
+        with open ('parse_tree.txt', 'w', encoding="utf-8") as f:
+                for pre, fill, node in RenderTree(node):
+                        f.write("%s%s" % (pre, node.name))
+                        f.write("\n")
